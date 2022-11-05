@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/chat_appbar_widget.dart';
+
 class ChatPage extends StatelessWidget {
+  // Usuario
   final String username;
+  // Otros Usurios
 
   const ChatPage({
     Key? key,
@@ -11,10 +15,10 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Chat Screen"),
+      appBar: ChatAppBarWidget(
+        username: username,
       ),
-      body: Center(child: Text("Chat Screen - Username : $username")),
+      body: Center(child: Text("Chat Page - $username")),
     );
   }
 }
