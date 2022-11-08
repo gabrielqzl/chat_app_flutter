@@ -49,7 +49,7 @@ class ChatAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                     fontSize: 18),
               ),
               const Text(
-                "Online",
+                "Online - Chat Page",
                 style: TextStyle(color: Colors.white38),
               ),
             ],
