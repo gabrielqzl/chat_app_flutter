@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/chat_appbar_widget.dart';
+import '../widgets/chat_input_message_widget.dart';
+import '../widgets/chat_message_widget.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   // Usuario
   final String username;
   // Otros Usurios
@@ -13,61 +15,66 @@ class ChatPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ChatAppBarWidget(
-        username: username,
+        username: widget.username,
       ),
       body: Stack(
         children: [
           ListView(
-            children: const [
-              Text("Chat Page"),
+            addAutomaticKeepAlives: true,
+            reverse: false,
+            padding: const EdgeInsets.only(bottom: 65),
+            children: [
+              // List of Messages
+              ChatMessageWidget(
+                  mensaje: "Hello", user: widget.username, isMe: false),
+              ChatMessageWidget(
+                  mensaje: "how are you?", user: widget.username, isMe: true),
+              ChatMessageWidget(
+                  mensaje: "Hello", user: widget.username, isMe: false),
+              ChatMessageWidget(
+                  mensaje: "how are you?", user: widget.username, isMe: true),
+              ChatMessageWidget(
+                  mensaje: "Hello", user: widget.username, isMe: false),
+              ChatMessageWidget(
+                  mensaje: "how are you?", user: widget.username, isMe: true),
+              ChatMessageWidget(
+                  mensaje: "Hello", user: widget.username, isMe: false),
+              ChatMessageWidget(
+                  mensaje: "how are you?", user: widget.username, isMe: true),
+              ChatMessageWidget(
+                  mensaje: "Hello", user: widget.username, isMe: false),
+              ChatMessageWidget(
+                  mensaje: "how are you?", user: widget.username, isMe: true),
+              ChatMessageWidget(
+                  mensaje: "Hello", user: widget.username, isMe: false),
+              ChatMessageWidget(
+                  mensaje: "how are you?", user: widget.username, isMe: true),
+              ChatMessageWidget(
+                  mensaje: "Hello", user: widget.username, isMe: false),
+              ChatMessageWidget(
+                  mensaje: "how are you?", user: widget.username, isMe: true),
+              ChatMessageWidget(
+                  mensaje: "Hello", user: widget.username, isMe: false),
+              ChatMessageWidget(
+                  mensaje: "how are you?", user: widget.username, isMe: true),
+              ChatMessageWidget(
+                  mensaje: "Hello", user: widget.username, isMe: false),
+              ChatMessageWidget(
+                  mensaje: "how are you?", user: widget.username, isMe: true),
             ],
           ),
-          const Align(
-              alignment: Alignment.bottomCenter, child: ChatInputMessage()),
-        ],
-      ),
-    );
-  }
-}
-
-class ChatInputMessage extends StatelessWidget {
-  const ChatInputMessage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: TextField(
-              cursorColor: Colors.deepPurple,
-              decoration: InputDecoration(
-                hintText: 'Mensaje',
-                filled: true,
-                fillColor: Colors.white,
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(width: 3, color: Colors.deepPurple),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50),
-                  borderSide: const BorderSide(width: 3, color: Colors.black38),
-                ),
-              ),
-            ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ChatInputMessageWidget(),
           ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.send,
-                color: Colors.deepPurple,
-              )),
         ],
       ),
     );

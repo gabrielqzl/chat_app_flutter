@@ -10,7 +10,7 @@ class ChatAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 16),
       decoration: const BoxDecoration(
         gradient: LinearGradient(colors: [
           Colors.deepPurple,
@@ -18,7 +18,7 @@ class ChatAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         ]),
       ),
       width: double.infinity,
-      height: 120,
+      height: 124,
       child: Row(
         children: [
           IconButton(
@@ -46,7 +46,7 @@ class ChatAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                 style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18),
+                    fontSize: 16),
               ),
               const Text(
                 "Online - Chat Page",
