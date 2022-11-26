@@ -1,7 +1,8 @@
+// import 'package:chat_app_flutter/widgets/chat_input_message_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/chat_appbar_widget.dart';
-import '../widgets/chat_input_message_widget.dart';
+// import '../widgets/chat_input_message_widget.dart';
 import '../widgets/chat_message_widget.dart';
 
 class ChatPage extends StatefulWidget {
@@ -19,61 +20,75 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  final ScrollController scrollController = ScrollController();
+  final TextEditingController controller = TextEditingController();
+  final listaMensajes = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ChatAppBarWidget(
         username: widget.username,
       ),
-      body: Stack(
+      body: Column(
         children: [
-          ListView(
-            addAutomaticKeepAlives: true,
-            reverse: false,
-            padding: const EdgeInsets.only(bottom: 65),
-            children: [
-              // List of Messages
-              ChatMessageWidget(
-                  mensaje: "Hello", user: widget.username, isMe: false),
-              ChatMessageWidget(
-                  mensaje: "how are you?", user: widget.username, isMe: true),
-              ChatMessageWidget(
-                  mensaje: "Hello", user: widget.username, isMe: false),
-              ChatMessageWidget(
-                  mensaje: "how are you?", user: widget.username, isMe: true),
-              ChatMessageWidget(
-                  mensaje: "Hello", user: widget.username, isMe: false),
-              ChatMessageWidget(
-                  mensaje: "how are you?", user: widget.username, isMe: true),
-              ChatMessageWidget(
-                  mensaje: "Hello", user: widget.username, isMe: false),
-              ChatMessageWidget(
-                  mensaje: "how are you?", user: widget.username, isMe: true),
-              ChatMessageWidget(
-                  mensaje: "Hello", user: widget.username, isMe: false),
-              ChatMessageWidget(
-                  mensaje: "how are you?", user: widget.username, isMe: true),
-              ChatMessageWidget(
-                  mensaje: "Hello", user: widget.username, isMe: false),
-              ChatMessageWidget(
-                  mensaje: "how are you?", user: widget.username, isMe: true),
-              ChatMessageWidget(
-                  mensaje: "Hello", user: widget.username, isMe: false),
-              ChatMessageWidget(
-                  mensaje: "how are you?", user: widget.username, isMe: true),
-              ChatMessageWidget(
-                  mensaje: "Hello", user: widget.username, isMe: false),
-              ChatMessageWidget(
-                  mensaje: "how are you?", user: widget.username, isMe: true),
-              ChatMessageWidget(
-                  mensaje: "Hello", user: widget.username, isMe: false),
-              ChatMessageWidget(
-                  mensaje: "how are you?", user: widget.username, isMe: true),
-            ],
+          Flexible(
+            child: ListView.builder(
+              controller: scrollController,
+              itemCount: listaMensajes.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ChatMessageWidget(
+                  mensaje: listaMensajes[index],
+                  user: "user",
+                  isMe: true,
+                );
+              },
+            ),
           ),
           Align(
-            alignment: Alignment.bottomCenter,
-            child: ChatInputMessageWidget(),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      cursorColor: Colors.deepPurple,
+                      decoration: InputDecoration(
+                        hintText: 'Mensaje',
+                        filled: true,
+                        fillColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              width: 3, color: Colors.deepPurple),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide:
+                              const BorderSide(width: 3, color: Colors.black38),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        scrollController.animateTo(
+                            scrollController.position.maxScrollExtent + 200,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeOut);
+
+                        listaMensajes.add(controller.text);
+                        controller.clear();
+                      });
+                    },
+                    icon: const Icon(Icons.send),
+                    color: Colors.deepPurple,
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),

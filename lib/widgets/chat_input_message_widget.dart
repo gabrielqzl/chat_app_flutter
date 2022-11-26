@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ChatInputMessageWidget extends StatelessWidget {
-  ChatInputMessageWidget({super.key});
+class ChatInputMessageWidget extends StatefulWidget {
+  final ScrollController scrollController;
+  final TextEditingController message;
 
-  final message = TextEditingController();
-  late String _mensaje = "";
+  const ChatInputMessageWidget(
+      {Key? key, required this.scrollController, required this.message})
+      : super(key: key);
+
+  @override
+  State<ChatInputMessageWidget> createState() => _ChatInputMessageWidgetState();
+}
+
+class _ChatInputMessageWidgetState extends State<ChatInputMessageWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,7 +22,7 @@ class ChatInputMessageWidget extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
-              controller: message,
+              controller: widget.message,
               cursorColor: Colors.deepPurple,
               decoration: InputDecoration(
                 hintText: 'Mensaje',
@@ -35,8 +43,14 @@ class ChatInputMessageWidget extends StatelessWidget {
           ),
           IconButton(
               onPressed: () {
-                _mensaje = message.text;
-                print(_mensaje);
+                // print(widget.message.text);
+                setState(() {
+                  widget.scrollController.animateTo(
+                    widget.scrollController.position.maxScrollExtent + 64,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOut,
+                  );
+                });
               },
               icon: const Icon(
                 Icons.send,
